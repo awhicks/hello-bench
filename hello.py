@@ -74,8 +74,6 @@ class BenchRunner:
                       'ubuntu-debootstrap',
                       'centos',
                       'fedora',
-                      'opensuse',
-                      'oraclelinux',
                       'mageia',])
 
     CMD_ARG_WAIT = {'mysql': RunArgs(env={'MYSQL_ROOT_PASSWORD': 'abc'},
@@ -91,7 +89,6 @@ class BenchRunner:
                     'ghost': RunArgs(waitline='Listening on'),
                     'glassfish': RunArgs(waitline='Running GlassFish'),
                     'drupal': RunArgs(waitline='apache2 -D FOREGROUND'),
-                    'elasticsearch': RunArgs(waitline='] started'),
                     'cassandra': RunArgs(waitline='Listening for thrift clients'),
                     'httpd': RunArgs(waitline='httpd -D FOREGROUND'),
                     'jenkins': RunArgs(waitline='Jenkins is fully up and running'),
@@ -150,8 +147,6 @@ class BenchRunner:
                  Bench('ubuntu-debootstrap', 'distro'),
                  Bench('centos', 'distro'),
                  Bench('fedora', 'distro'),
-                 Bench('opensuse', 'distro'),
-                 Bench('oraclelinux', 'distro'),
                  Bench('mageia', 'distro'),
                  Bench('mysql', 'database'),
                  Bench('percona', 'database'),
@@ -179,7 +174,6 @@ class BenchRunner:
                  Bench('thrift', 'language'),
                  Bench('cassandra', 'database'),
                  Bench('mongo', 'database'),
-                 Bench('elasticsearch', 'database'),
                  Bench('hello-world'),
                  Bench('ghost'),
                  Bench('drupal'),
@@ -371,7 +365,9 @@ class BenchRunner:
 
     def pull(self, bench):
         cmd = '%s pull %s%s' % (self.docker, self.registry, bench.name)
+        print cmd
         rc = os.system(cmd)
+        print rc
         assert(rc == 0)
 
     def push(self, bench):
