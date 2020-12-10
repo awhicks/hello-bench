@@ -375,11 +375,20 @@ class BenchRunner:
         rc = os.system(cmd)
         assert(rc == 0)
 
+    def delete(self, bench):
+        cmd = '%s rmi %s' % (self.docker, bench.name)
+        print cmd
+        rc = os.system(cmd)
+        print rc
+        assert(rc == 0)
+
     def tag(self, bench):
         cmd = '%s tag %s%s %s%s' % (self.docker,
                                     self.registry, bench.name,
                                     self.registry2, bench.name)
+        print cmd
         rc = os.system(cmd)
+        print rc
         assert(rc == 0)
 
     def operation(self, op, bench):
@@ -391,6 +400,8 @@ class BenchRunner:
             self.push(bench)
         elif op == 'tag':
             self.tag(bench)
+        elif op == 'delete':
+            self.delete(bench)
         else:
             print 'Unknown operation: '+op
             exit(1)
